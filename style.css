@@ -1,70 +1,69 @@
 body {
-  background: linear-gradient(to bottom, #ffe6f0, #ffe6fa);
+  background: url('assets/images/starfield.jpg') repeat;
+  background-color: #000014;
+  color: #ffffff;
   font-family: 'Georgia', serif;
-  color: #333;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
-.container {
+#game-container {
   max-width: 800px;
-  margin: auto;
-  background: #fff0f8;
+  margin: 40px auto;
   padding: 20px;
+  background: rgba(0, 0, 30, 0.8);
   border-radius: 20px;
-  box-shadow: 0 0 10px #ffb6c1;
-}
-h1 {
+  box-shadow: 0 0 20px #0ff;
   text-align: center;
-  font-family: 'Cursive', serif;
-  color: #d63384;
 }
-textarea {
+#chapter-image {
   width: 100%;
-  height: 100px;
-  padding: 10px;
-  border: 2px dashed #ff99cc;
-  border-radius: 10px;
-  background: #fff;
-  font-family: monospace;
-  font-size: 14px;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
-select, button, input[type="file"] {
-  margin: 10px 5px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #ffc0cb;
-  color: white;
+#chapter-text {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+.choice-button {
+  background: #ffccff;
+  color: #000033;
   font-weight: bold;
+  padding: 12px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
-button:hover, select:hover, input[type="file"]:hover {
-  background: #ff69b4;
+.choice-button:hover {
+  background: #ff99cc;
 }
-.output {
-  margin-top: 15px;
-  padding: 10px;
-  background: #fff;
-  border: 1px solid #ffb6c1;
+#comment-form {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255,255,255,0.1);
   border-radius: 10px;
-  min-height: 50px;
-  font-family: monospace;
-  white-space: pre-wrap;
 }
-.hidden {
-  display: none;
-}
-#infoBox, #testBox {
-  margin-top: 20px;
+#comment-form input,
+#comment-form textarea {
+  width: 90%;
   padding: 10px;
-  background: #ffeef8;
-  border: 1px dashed #d63384;
-  border-radius: 10px;
-  font-size: 14px;
-  animation: fadeIn 0.4s ease-in;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 1rem;
 }
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+#comment-form button {
+  background-color: #66ffcc;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+#comment-form button:hover {
+  background-color: #33ddaa;
 }

@@ -2,108 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Diana Abysheva - Assignments</title>
-  <style>
-    body {
-      background-color: #ffe6f0;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #ffb6c1;
-      color: white;
-      text-align: center;
-      padding: 1.5em 0;
-      position: relative;
-    }
-    .grade-box {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      background-color: white;
-      color: #ff69b4;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .info {
-      margin-bottom: 2em;
-      text-align: center;
-      font-size: 1.1em;
-    }
-    .course-buttons {
-      text-align: center;
-      margin: 2em 0;
-    }
-    .course-buttons button {
-      margin: 0.5em;
-      padding: 0.7em 1.5em;
-      font-size: 1em;
-      border: none;
-      background-color: #ff69b4;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .course-buttons button:hover {
-      background-color: #ff85c1;
-    }
-    iframe {
-      display: none;
-      width: 100%;
-      height: 600px;
-      border: none;
-    }
-    footer {
-      text-align: center;
-      padding: 1em;
-      margin-top: 2em;
-      font-size: 0.9em;
-      color: #888;
-    }
-  </style>
+  <title>Listener Beyond Stars</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Diana Abysheva</h1>
-    <p>ID: 2417678</p>
-    <div class="grade-box" id="gradeBox">📊 Loading grade...</div>
-  </header>
-  <main>
-    <div class="info">
-      📧 Contact me: <a href="mailto:diana.abysheva2710@gmail.com">diana.abysheva2710@gmail.com</a>
+  <div id="game-container">
+    <img id="chapter-image" src="" alt="Chapter Image">
+    <div id="chapter-text"></div>
+    <div id="choices"></div>
+    <div id="comment-form" style="display: none;">
+      <h3>💬 Leave your comment</h3>
+      <form id="feedbackForm">
+        <input type="text" name="name" placeholder="Your name" required><br><br>
+        <textarea name="comment" placeholder="Your thoughts..." rows="4" required></textarea><br><br>
+        <button type="submit">Submit</button>
+        <p id="form-status" style="margin-top:10px;"></p>
+      </form>
     </div>
-
-    <div class="course-buttons">
-<div class="course-buttons">
-  <button onclick="loadProject('project1/index.html')">📘 Digital Literacy - Project 1</button>
-  <button onclick="loadProject('virtuallibrary/index.html')">📘 Digital Literacy - Virtual Library</button>
-  <button onclick="loadProject('cli/index.html')">📘 Digital Literacy - CLI</button>
-  <button onclick="window.location.href='twine-game/index.html'"> 🎮 Play: Listener Beyond Stars</button>
-</div>
-
-<iframe id="projectFrame" style="width:100%; height:600px; border:none; display:none;"></iframe>
-
-<script>
-  function loadProject(path) {
-    const iframe = document.getElementById('projectFrame');
-    iframe.src = path;
-    iframe.style.display = 'block';
-    window.scrollTo(0, iframe.offsetTop);
-  }
-fetch("https://script.google.com/macros/s/AKfycbymxkiMrD16Wg7V1lnfX9_UbfXVGEs-vwQW3emQMYJbcCBgGl2hyWLu8OF4H68UDFrQ_g/exec")
-      .then(res => res.json())
-      .then(data => {
-        const box = document.getElementById("gradeBox");
-        box.textContent = `📊 Grade: ${data.currentGrade}`;
-      })
-      .catch(err => {
-        document.getElementById("gradeBox").textContent = "⚠️ Grade unavailable";
-        console.error(err);
-      });
-
-</script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
