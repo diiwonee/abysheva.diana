@@ -2,24 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Listener Beyond Stars</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Diana Abysheva - Assignments</title>
+  <style>
+    body {
+      background-color: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #ffb6c1;
+      color: white;
+      padding: 1.5em 1em 1.5em 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header .title {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+    header .info {
+      font-size: 1em;
+    }
+    .grade-box {
+      background-color: white;
+      color: #ff69b4;
+      border-radius: 10px;
+      padding: 0.5em 1em;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .course-buttons {
+      text-align: center;
+      margin: 2em 0;
+    }
+    .course-buttons button {
+      margin: 0.5em;
+      padding: 0.7em 1.5em;
+      font-size: 1em;
+      border: none;
+      background-color: #ff69b4;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .course-buttons button:hover {
+      background-color: #ff85c1;
+    }
+    iframe {
+      display: none;
+      width: 100%;
+      height: 600px;
+      border: none;
+      margin-top: 2em;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      margin-top: 2em;
+      font-size: 0.9em;
+      color: #888;
+    }
+    .contact {
+      text-align: center;
+      margin-top: 1em;
+    }
+  </style>
 </head>
 <body>
-  <div id="game-container">
-    <img id="chapter-image" src="" alt="Chapter Image">
-    <div id="chapter-text"></div>
-    <div id="choices"></div>
-    <div id="comment-form" style="display: none;">
-      <h3>💬 Leave your comment</h3>
-      <form id="feedbackForm">
-        <input type="text" name="name" placeholder="Your name" required><br><br>
-        <textarea name="comment" placeholder="Your thoughts..." rows="4" required></textarea><br><br>
-        <button type="submit">Submit</button>
-        <p id="form-status" style="margin-top:10px;"></p>
-      </form>
+  <header>
+    <div class="title">
+      Diana Abysheva<br>
+      <span style="font-size: 0.8em;">ID: 2417678</span>
     </div>
+    <div class="grade-box" id="gradeBox">
+      📊 Loading grade...
+    </div>
+  </header>
+
+  <main>
+    <div class="contact">
+      📧 Contact me: <a href="mailto:diana.abysheva2710@gmail.com">diana.abysheva2710@gmail.com</a>
+    </div>
+
+    <div class="course-buttons">
+      <button onclick="loadProject('project1/index1.html')">📘 Digital Literacy - Project 1</button>
+      <button onclick="loadProject('virtuallibrary/index.html')">📚 Digital Literacy - Virtual Library</button>
+      <button onclick="loadProject('twine-game/index.html')">📚 Digital Literacy - LBS: Twine edition</button>
+      <button onclick="loadProject('git-game/index.html')">📚 Digital Literacy - LBS: Git edition</button>
   </div>
-  <script src="script.js"></script>
+
+    <iframe id="projectFrame"></iframe>
+  </main>
+
+  <footer>
+    © 2025 Diana Abysheva
+  </footer>
+
+  <script>
+    function loadProject(path) {
+      const iframe = document.getElementById('projectFrame');
+      iframe.src = path;
+      iframe.style.display = 'block';
+      window.scrollTo({ top: iframe.offsetTop, behavior: 'smooth' });
+    }
+
+    async function loadGrade() {
+      const url = "https://script.google.com/macros/s/AKfycbymxkiMrD16Wg7V1lnfX9_UbfXVGEs-vwQW3emQMYJbcCBgGl2hyWLu8OF4H68UDFrQ_g/exec";
+      const box = document.getElementById("gradeBox");
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        box.textContent = `📊 Grade: ${data.currentGrade}`;
+      } catch (e) {
+        box.textContent = "⚠️ Could not load grade";
+        console.error(e);
+      }
+    }
+
+    loadGrade();
+  </script>
 </body>
 </html>
