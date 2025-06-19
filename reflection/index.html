@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📄 PRD & Reflection Viewer</title>
+  <style>
+    :root {
+      --bg: #fff0f8;
+      --card: #ffffff;
+      --text: #4c004c;
+      --button: #ffb6e6;
+      --button-hover: #ff8ddc;
+    }
+
+    body.dark {
+      --bg: #2e2e2e;
+      --card: #3a3a3a;
+      --text: #fceaff;
+      --button: #b278aa;
+      --button-hover: #d195c4;
+    }
+
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+      text-align: center;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .type-buttons, .doc-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background-color: var(--button);
+      color: var(--text);
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--button-hover);
+      transform: scale(1.05);
+    }
+
+    iframe {
+      width: 90%;
+      height: 400px;
+      border: none;
+      margin-top: 1rem;
+      border-radius: 12px;
+      background: var(--card);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .comment-form {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 500px;
+      margin-inline: auto;
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    textarea {
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .comment-success {
+      color: green;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+  <h1>🌸 My PRD & Reflection Documents</h1>
+
+  <div class="type-buttons">
+    <button onclick="showDocs('prd')">📘 PRD</button>
+    <button onclick="showDocs('reflection')">📒 Reflection</button>
+  </div>
+
+  <div class="doc-buttons hidden" id="doc-buttons"></div>
+
+  <iframe id="doc-viewer" class="hidden"></iframe>
+
+  <form class="comment-form hidden" id="comment-form" onsubmit="submitComment(event)">
+    <h3>💬 Leave a Comment</h3>
+    <textarea id="comment" rows="3" placeholder="Write your thoughts..."></textarea>
+    <input type="hidden" id="doc-name" />
+    <button type="submit">📨 Submit</button>
+    <div id="success-msg" class="comment-success hidden">Thank you! 💖</div>
+  </form>
+
+  <script>
+    const docs = {
+      prd: [
+        { name: "PRD - Project 2", url: "https://docs.google.com/document/d/1i_fP5qRx9G2jAXB_rV9FteNbbP0JwKxfEy5fY5JbekE/edit?tab=t.0" },
+      ],
+      reflection: [
+        { name: "Reflection - Week 1", url: "https://docs.google.com/document/d/EXAMPLE_ID3/preview" },
+        { name: "Reflection - Week 2", url: "https://docs.google.com/document/d/EXAMPLE_ID4/preview" },
+      ]
+    };
+
+    function showDocs(type) {
+      const container = document.getElementById("doc-buttons");
+      container.innerHTML = "";
+      docs[type].forEach(doc => {
+        const btn = document.createElement("button");
+        btn.textContent = doc.name;
+        btn.onclick = () => openDoc(doc.name, doc.url);
+        container.appendChild(btn);
+      });
+      container.classList.remove("hidden");
+      document.getElementById("doc-viewer").classList.add("hidden");
+      document.getElementById("comment-form").classList.add("hidden");
+    }
+
+    function openDoc(name, url) {
+      document.getElementById("doc-viewer").src = url;
+      document.getElementById("doc-viewer").classList.remove("hidden");
+      document.getElementById("doc-form").classList = name;
+      document.getElementById("comment-form").classList.remove("hidden");
+      document.getElementById("doc-name").value = name;
+      document.getElementById("success-msg").classList.add("hidden");
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+    }
+
+    async function submitComment(event) {
+      event.preventDefault();
+      const comment = document.getElementById("comment").value.trim();
+      const docName = document.getElementById("doc-name").value;
+
+      if (!comment) return;
+
+      await fetch("https://script.google.com/macros/s/AKfycbwFfl2snFzXXD_HDFT8h0nH1nK4TgLnys5PXtaz-XTV3FSAlY1hI2nzZdj0aW_T9-iAwA/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ document: docName, comment: comment })
+      });
+
+      document.getElementById("comment").value = "";
+      document.getElementById("success-msg").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
